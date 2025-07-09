@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# LOG ME OUT OF SAMS GIT ACCOUNT RIGHT NOW
 #
 # Copyright © 2015-2021 the original authors.
 #
