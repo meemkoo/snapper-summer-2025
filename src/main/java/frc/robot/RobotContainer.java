@@ -6,15 +6,34 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsytems.Collecter;
+import frc.robot.subsytems.Indexer;
+import frc.robot.subsytems.Pivot;
+import frc.robot.subsytems.Shooter;
 
 public class RobotContainer {
-  public RobotContainer() {
-    configureBindings();
-  }
+    private static final Collecter collecter = new Collecter();
+    private static final Shooter shooter = new Shooter();
+    private static final Indexer indexer = new Indexer();
+    private static final Pivot pivot = new Pivot();
 
-  private void configureBindings() {}
+    private static final NoteTrain notetrain = new NoteTrain(collecter, shooter, indexer, pivot);
 
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-  }
+
+    private static final CommandXboxController driverctl = new CommandXboxController(0);
+
+    public RobotContainer() {
+        configureBindings();
+    }
+
+    private void configureBindings() {
+        collecter.setDefaultCommand(collecter.resistNote());
+
+        driverctl.a().whileTrue(collecter.stop());
+    }
+
+    public Command getAutonomousCommand() {
+        return Commands.print("No autonomous command configured");
+    }
 }
